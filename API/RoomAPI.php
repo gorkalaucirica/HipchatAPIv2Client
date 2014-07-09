@@ -24,7 +24,7 @@ class RoomAPI
      * Gets room by id or name
      * More info: https://www.hipchat.com/docs/apiv2/method/get_room
      *
-     * @param $id Room id or name
+     * @param string $id The id or name of the room
      *
      * @return Room
      */

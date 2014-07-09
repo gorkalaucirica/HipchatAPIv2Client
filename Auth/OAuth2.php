@@ -2,7 +2,6 @@
 
 namespace GorkaLaucirica\HipchatAPIv2Client\Auth;
 
-
 class OAuth2 implements AuthInterface
 {
     protected $authToken;
