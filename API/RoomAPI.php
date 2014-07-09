@@ -21,6 +21,25 @@ class RoomAPI
     }
 
     /**
+     * List non-archived rooms for this group
+     * More info: https://www.hipchat.com/docs/apiv2/method/get_all_rooms
+     *
+     * @param array $params Query string parameter(s), for example: array('max-results' => 30)
+     *
+     * @return array
+     */
+    public function getRooms($params = array())
+    {
+        $response = $this->client->get("/v2/room", $params);
+
+        $rooms = array();
+        foreach ($response['items'] as $response) {
+            $rooms[] = new Room($response);
+        }
+        return $rooms;
+    }
+
+    /**
      * Gets room by id or name
      * More info: https://www.hipchat.com/docs/apiv2/method/get_room
      *
@@ -34,4 +53,5 @@ class RoomAPI
 
         return new Room($response);
     }
-} 
+
+}

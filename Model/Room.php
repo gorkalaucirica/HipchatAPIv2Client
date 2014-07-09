@@ -54,20 +54,24 @@ class Room
     public function parseJson($json)
     {
         $this->id = $json['id'];
-        $this->xmppJid = $json['xmpp_jid'];
-        //TODO statistics
         $this->name = $json['name'];
-        //$this->links = $json['links'];
-        $this->created = new \DateTime($json['created']);
-        $this->archived = $json['is_archived'];
-        $this->privacy = $json['privacy'];
-        $this->guestAccessible = $json['is_guest_accessible'];
-        $this->topic = $json['topic'];
-        foreach ($json['participants'] as $participant) {
-            $this->participants[] = new User($participant);
+        $this->links = $json['links'];
+
+        if (isset($json['xmpp_jid'])) {
+            $this->xmppJid = $json['xmpp_jid'];
+            //TODO statistics
+            $this->created = new \DateTime($json['created']);
+            $this->archived = $json['is_archived'];
+            $this->privacy = $json['privacy'];
+            $this->guestAccessible = $json['is_guest_accessible'];
+            $this->topic = $json['topic'];
+            $this->participants = array();
+            foreach ($json['participants'] as $participant) {
+                $this->participants[] = new User($participant);
+            }
+            $this->owner = new User($json['owner']);
+            $this->guestAccessUrl = $json['guest_access_url'];
         }
-        $this->owner = new User($json['owner']);
-        $this->guestAccessUrl = $json['guest_access_url'];
     }
 
     /**

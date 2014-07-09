@@ -59,8 +59,8 @@ class User
         $this->mentionName = $json['mention_name'];
         $this->id = $json['id'];
         $this->name = $json['name'];
+        $this->links = "";
         if(isset($json['links'])) {
-            $this->links = "";
         }
         else {
             $this->xmppJid = $json['xmpp_jid'];

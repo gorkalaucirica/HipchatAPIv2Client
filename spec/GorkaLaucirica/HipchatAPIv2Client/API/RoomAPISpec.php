@@ -18,16 +18,24 @@ class RoomAPISpec extends ObjectBehavior
         $this->shouldHaveType('GorkaLaucirica\HipchatAPIv2Client\API\RoomAPI');
     }
 
+    function it_gets_rooms(Client $client)
+    {
+        $response = $this->getArrayResponse();
+        $client->get("/v2/room", array())->shouldBeCalled()->willReturn($response);
+
+        $this->getRooms()->shouldHaveCount(2);
+    }
+
     function it_gets_room(Client $client)
     {
         $id = 123456;
-        $response = $this->getTestResponse();
+        $response = $this->getResourceResponse();
         $client->get("/v2/room/$id")->shouldBeCalled()->willReturn($response);
 
         $this->getRoom($id)->shouldReturnAnInstanceOf('GorkaLaucirica\HipchatAPIv2Client\Model\Room');
     }
 
-    protected function getTestResponse()
+    protected function getResourceResponse()
     {
         return array(
             'xmpp_jid' => '',
@@ -46,5 +54,24 @@ class RoomAPISpec extends ObjectBehavior
             'id' => 123456,
             'guest_access_url' => ''
         );
+    }
+
+    protected function getArrayResponse()
+    {
+        return array(
+            "items" => array(
+                    array(
+                        'id' => 1233,
+                        'name' => 'test1',
+                        'links' => array('self' => '', 'webhooks' => '', 'members' => '')
+                    ),
+                    array(
+                        'id' => 1253,
+                        'name' => 'test2',
+                        'links' => array('self' => '', 'webhooks' => '', 'members' => '')
+                    )
+            )
+        );
+
     }
 }
