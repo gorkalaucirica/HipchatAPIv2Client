@@ -9,7 +9,7 @@ use GorkaLaucirica\HipchatAPIv2Client\Exception\RequestException;
 
 class Client
 {
-    protected $baseUrl;
+    protected $baseUrl = 'https://api.hipchat.com';
 
     /** @var AuthInterface */
     protected $auth;
@@ -22,9 +22,8 @@ class Client
      *
      * @return self
      */
-    public function __construct($baseUrl, AuthInterface $auth)
+    public function __construct(AuthInterface $auth)
     {
-        $this->baseUrl = $baseUrl;
         $this->auth = $auth;
     }
 

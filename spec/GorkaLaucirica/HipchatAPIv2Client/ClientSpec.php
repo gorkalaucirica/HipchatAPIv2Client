@@ -10,7 +10,7 @@ class ClientSpec extends ObjectBehavior
 {
     function let(AuthInterface $auth)
     {
-        $this->beConstructedWith('https://api.hipchat.com/v2',$auth);
+        $this->beConstructedWith($auth);
     }
 
     function it_is_initializable()

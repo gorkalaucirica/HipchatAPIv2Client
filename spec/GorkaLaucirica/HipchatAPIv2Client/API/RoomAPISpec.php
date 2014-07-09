@@ -3,6 +3,7 @@
 namespace spec\GorkaLaucirica\HipchatAPIv2Client\API;
 
 use GorkaLaucirica\HipchatAPIv2Client\Client;
+use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -33,6 +34,14 @@ class RoomAPISpec extends ObjectBehavior
         $client->get("/v2/room/$id")->shouldBeCalled()->willReturn($response);
 
         $this->getRoom($id)->shouldReturnAnInstanceOf('GorkaLaucirica\HipchatAPIv2Client\Model\Room');
+    }
+
+    function it_sends_room_notification(Client $client, Message $message)
+    {
+        $request = array("color" => "gray", "message" => "This is a test!!", 'notify' => false, 'message_format' => 'html');
+        $message->toJson()->shouldBeCalled()->willReturn($request);
+        $client->post("/v2/room/123456/notification", $request)->shouldBeCalled();
+        $this->sendRoomNotification(123456, $message);
     }
 
     protected function getResourceResponse()

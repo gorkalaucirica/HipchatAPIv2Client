@@ -59,7 +59,7 @@ class Room
 
         if (isset($json['xmpp_jid'])) {
             $this->xmppJid = $json['xmpp_jid'];
-            //TODO statistics
+            //Statistics need to be implemented
             $this->created = new \DateTime($json['created']);
             $this->archived = $json['is_archived'];
             $this->privacy = $json['privacy'];

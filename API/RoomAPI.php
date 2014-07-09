@@ -3,6 +3,7 @@
 namespace GorkaLaucirica\HipchatAPIv2Client\API;
 
 use GorkaLaucirica\HipchatAPIv2Client\Client;
+use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Room;
 
 class RoomAPI
@@ -52,6 +53,20 @@ class RoomAPI
         $response = $this->client->get("/v2/room/$id");
 
         return new Room($response);
+    }
+
+    /**
+     * Gets room by id or name
+     * More info: https://www.hipchat.com/docs/apiv2/method/get_room
+     *
+     * @param string  $id      The id or name of the room
+     * @param Message $message The message to be sent
+     *
+     * @return Room
+     */
+    public function sendRoomNotification($id, Message $message)
+    {
+        $this->client->post("/v2/room/$id/notification", $message->toJson());
     }
 
 }
