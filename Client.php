@@ -26,11 +26,11 @@ class Client
         $browser = new Browser($curl);
 
         $url = $this->baseUrl . $resource;
-        if(sizeof($query) > 0) {
+        if (count($query) > 0) {
             $url .= "?";
         }
 
-        foreach($query as $key => $value) {
+        foreach ($query as $key => $value) {
             $url .= "$key=$value&";
         }
 
@@ -38,7 +38,7 @@ class Client
 
         $response = $browser->get($url, $headers);
 
-        if($browser->getLastResponse()->getStatusCode() != 200) {
+        if ($browser->getLastResponse()->getStatusCode() != 200) {
             throw new BadRequestException();
         }
 
@@ -59,7 +59,7 @@ class Client
 
         $response = $browser->post($url, $headers, json_encode($content));
 
-        if($browser->getLastResponse()->getStatusCode() > 299) {
+        if ($browser->getLastResponse()->getStatusCode() > 299) {
             throw new BadRequestException($response);
         }
 
@@ -80,7 +80,7 @@ class Client
 
         $response = $browser->put($url, $headers, json_encode($content));
 
-        if($browser->getLastResponse()->getStatusCode() > 299) {
+        if ($browser->getLastResponse()->getStatusCode() > 299) {
             throw new BadRequestException($response);
         }
 
