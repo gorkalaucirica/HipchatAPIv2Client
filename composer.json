@@ -1,5 +1,5 @@
 {
-    "name": "gorkalaucirica/HipchatAPIv2Client",
+    "name": "gorkalaucirica/hipchat-v2-api-client",
     "description": "Hipchat v2 API client",
     "keywords": ["hipchat","api","library","client","v2"],
     "homepage": "https://github.com/gorkalaucirica/HipchatAPIv2Client",
