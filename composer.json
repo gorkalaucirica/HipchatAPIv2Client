@@ -1,0 +1,33 @@
+{
+    "name": "gorkalaucirica/HipchatAPIv2Client",
+    "description": "Hipchat v2 API client",
+    "keywords": ["hipchat","api","library","client","v2"],
+    "homepage": "https://github.com/gorkalaucirica/HipchatAPIv2Client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gorka Laucirica",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "kriswallsmith/buzz": "0.10"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.0.*@dev",
+        "henrikbjorn/phpspec-code-coverage" : "1.0.*@dev"
+    },
+    "target-dir": "GorkaLaucirica/HipchatAPIv2Client",
+    "autoload": {
+        "psr-0": { "GorkaLaucirica\\HipchatAPIv2Client": "" }
+    },
+    "autoload-dev": {
+        "psr-0": { "GorkaLaucirica\\HipchatAPIv2Client\\spec\\": "spec/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
