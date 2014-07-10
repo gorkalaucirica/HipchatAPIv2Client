@@ -31,7 +31,7 @@ section to see how to use the `$client` to send requests to the API.
 
 ##API calls
 
-All API call methods are located in the API folder. All of them have been documented and have a link to Hipchat v2
+All API call methods are located in the API folder. All of them have been documented and all have a link to Hipchat v2
 API documentation. Some examples:
 
 ####Getting user by mention name:
@@ -39,10 +39,10 @@ API documentation. Some examples:
     $userAPI = new UserAPI($client);
     $user = $userAPI->getUser('@gorkalaucirica');
 
-###Getting all rooms
+####Getting all rooms
 
     $roomAPI = new RoomAPI($client);
-    $issues = $issuesAPI->getIssue('XXX-42');
+    $room = $roomAPI->getRooms(array('max-results' => 30));
 
 ##TODO
 

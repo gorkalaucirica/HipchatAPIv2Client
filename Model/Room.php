@@ -75,6 +75,25 @@ class Room
     }
 
     /**
+     * Serializes Room object
+     *
+     * @return array
+     */
+    public function toJson()
+    {
+        $json = array();
+
+        $json['name'] = $this->getName();
+        $json['is_archived'] = $this->isArchived();
+        $json['privacy'] = $this->getPrivacy();
+        $json['is_guest_accessible'] = $this->isGuestAccessible();
+        $json['topic'] = $this->getTopic();
+        $json['owner'] = array('id' => $this->getOwner()->getId());
+
+        return $json;
+    }
+
+    /**
      * Sets id
      *
      * @param integer $id The id to be set

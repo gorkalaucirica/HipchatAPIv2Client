@@ -56,13 +56,26 @@ class RoomAPI
     }
 
     /**
+     * Updates a room
+     * More info: https://www.hipchat.com/docs/apiv2/method/update_room
+     *
+     * @param Room $room Existing room to be updated
+     *
+     * @return void
+     */
+    public function updateRoom(Room $room)
+    {
+        $this->client->put(sprintf("/v2/room/%s", $room->getId()), $room->toJson());
+    }
+
+    /**
      * Gets room by id or name
      * More info: https://www.hipchat.com/docs/apiv2/method/get_room
      *
      * @param string  $id      The id or name of the room
      * @param Message $message The message to be sent
      *
-     * @return Room
+     * @return void
      */
     public function sendRoomNotification($id, Message $message)
     {

@@ -14,6 +14,8 @@ class User
 
     protected $title;
 
+    protected $links;
+
     //protected $presence;
 
     protected $created;
@@ -59,10 +61,9 @@ class User
         $this->mentionName = $json['mention_name'];
         $this->id = $json['id'];
         $this->name = $json['name'];
-        $this->links = "";
-        if(isset($json['links'])) {
-        }
-        else {
+        if (isset($json['links'])) {
+            $this->links = $json['links'];
+        } else {
             $this->xmppJid = $json['xmpp_jid'];
             $this->deleted = $json['is_deleted'];
             $this->lastActive = $json['last_active'];
