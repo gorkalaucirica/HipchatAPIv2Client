@@ -56,6 +56,21 @@ class RoomAPI
     }
 
     /**
+     * Creates a room
+     * More info: https://www.hipchat.com/docs/apiv2/method/create_room
+     *
+     * @param Room $room New room to be persisted
+     *
+     * @return integer Just created room id
+     */
+    public function createRoom(Room $room)
+    {
+        $response = $this->client->post("/v2/room", $room->toJson());
+
+        return $response['id'];
+    }
+
+    /**
      * Updates a room
      * More info: https://www.hipchat.com/docs/apiv2/method/update_room
      *

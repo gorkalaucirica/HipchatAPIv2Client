@@ -44,7 +44,52 @@ API documentation. Some examples:
     $roomAPI = new RoomAPI($client);
     $room = $roomAPI->getRooms(array('max-results' => 30));
 
-##TODO
+##Current status
 
-* Still many calls are missing (will be added as soon as posible)
+The following list shows methods available and missing:
+
+####Add ons
+- [ ] Get addon installable data
+
+####Capabilities
+- [ ] Get capabilities
+
+####Emoticons
+- [ ] Get all emoticons
+- [ ] Get emoticon
+
+####OAuth Sessions
+- [ ] Delete session
+- [ ] Get session
+- [ ] Generate token
+
+####Rooms
+- [x] Create room
+- [x] Get all rooms
+- [ ] Send room notification redirect
+- [x] Send room notification
+- [x] Update room
+- [x] Get room
+- [ ] Delete room
+- [ ] Create webhook
+- [ ] Get all webhooks
+- [ ] Get room statistics
+- [ ] Get all members
+- [ ] Set topic
+- [ ] Add member
+- [ ] Remove member
+- [ ] Delete webhook
+- [ ] Get webhook
+- [ ] View history
+- [ ] Invite user
+
+####Users
+- [ ] Private message user
+- [ ] Upload photo
+- [ ] Delete photo
+- [ ] Update user
+- [ ] Delete user
+- [x] View user
+- [ ] Crete user
+- [ ] Get all users
 

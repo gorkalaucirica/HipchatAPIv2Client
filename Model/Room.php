@@ -41,6 +41,9 @@ class Room
     {
         if ($json) {
             $this->parseJson($json);
+        } else {
+            $this->guestAccessible = false;
+            $this->privacy = 'public';
         }
     }
 
@@ -84,12 +87,19 @@ class Room
         $json = array();
 
         $json['name'] = $this->getName();
-        $json['is_archived'] = $this->isArchived();
         $json['privacy'] = $this->getPrivacy();
-        $json['is_guest_accessible'] = $this->isGuestAccessible();
-        $json['topic'] = $this->getTopic();
-        $json['owner'] = array('id' => $this->getOwner()->getId());
-
+        //Parameters for PUT call (Room already exists)
+        if ($this->getId()) {
+            $json['is_archived'] = $this->isArchived();
+            $json['is_guest_accessible'] = $this->isGuestAccessible();
+            $json['topic'] = $this->getTopic();
+            $json['owner'] = array('id' => $this->getOwner()->getId());
+        } else { //Paramters for POST call
+            $json['guest_access'] = $this->isGuestAccessible();
+            if ($this->getOwner()) {
+                $json['owner_user_id'] = $this->getOwner()->getId();
+            }
+        }
         return $json;
     }
 

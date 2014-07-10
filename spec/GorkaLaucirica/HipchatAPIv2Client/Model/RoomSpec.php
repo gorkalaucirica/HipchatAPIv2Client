@@ -35,23 +35,31 @@ class RoomSpec extends ObjectBehavior
         $this->getId()->shouldReturn('123556');
     }
 
-    function it_serializes_to_array()
+    function it_serializes_to_array_for_post()
     {
-        $this->setId('123556');
-        $this->setName('Test name');
-        $this->setArchived(false);
-        $this->setPrivacy('private');
-        $this->setGuestAccessible(false);
-        $this->setTopic('Testing');
+        $user = new User();
+        $user->setId(111);
+        $this->setName('POST test')
+            ->setGuestAccessible(false)
+            ->setPrivacy('private')
+            ->setOwner($user);
+
+        $this->toJson()->shouldHaveCount(4);
+    }
+
+    function it_serializes_to_array_for_put()
+    {
+        $this->setId('123556')
+            ->setName('Test name')
+            ->setArchived(false)
+            ->setPrivacy('private')
+            ->setGuestAccessible(false)
+            ->setTopic('Testing');
         $user = new User();
         $user->setId('1222');
         $this->setOwner($user);
 
-        $this->toJson()->shouldReturn(
-            array('name' => 'Test name', 'is_archived' => false, 'privacy' => 'private', 'is_guest_accessible' => false,
-                'topic' => 'Testing', 'owner' => array('id' => '1222')
-            )
-        );
+        $this->toJson()->shouldHaveCount(6);
     }
 
     function its_id_is_mutable()
