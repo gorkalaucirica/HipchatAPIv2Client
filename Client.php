@@ -134,4 +134,24 @@ class Client
 
         return json_decode($response->getContent(), true);
     }
+
+    public function delete($resource)
+    {
+        $curl = new Curl();
+        $browser = new Browser($curl);
+
+        $url = $this->baseUrl . $resource;
+
+        $headers = array(
+            'Authorization' => $this->auth->getCredential()
+        );
+
+        $response = $browser->delete($url, $headers);
+
+        if ($browser->getLastResponse()->getStatusCode() > 299) {
+            throw new RequestException(json_decode($browser->getLastResponse()->getContent(), true));
+        }
+
+        return json_decode($response->getContent(), true);
+    }
 }

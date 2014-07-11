@@ -84,6 +84,19 @@ class RoomAPI
     }
 
     /**
+     * Deletes a room and kicks the current participants.
+     * More info: https://www.hipchat.com/docs/apiv2/method/delete_room
+     *
+     * @param string $id The id or name of the room.
+     *
+     * @return void
+     */
+    public function deleteRoom($id)
+    {
+        $this->client->delete(sprintf('/v2/room/%s', $id));
+    }
+
+    /**
      * Gets room by id or name
      * More info: https://www.hipchat.com/docs/apiv2/method/get_room
      *

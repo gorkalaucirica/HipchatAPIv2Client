@@ -60,6 +60,12 @@ class RoomAPISpec extends ObjectBehavior
         $this->updateRoom($room);
     }
 
+    function it_deletes_room(Client $client)
+    {
+        $client->delete('/v2/room/123456')->shouldBeCalled();
+        $this->deleteRoom('123456');
+    }
+
     function it_sends_room_notification(Client $client, Message $message)
     {
         $request = array(
