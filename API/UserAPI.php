@@ -55,6 +55,35 @@ class UserAPI
     }
 
     /**
+     * Creates a new user
+     * More info: https://www.hipchat.com/docs/apiv2/method/create_user
+     *
+     * @param User   $user     User to be created
+     * @param string $password User's password
+     *
+     * @return mixed
+     */
+    public function createUser(User $user, $password)
+    {
+        $request = $user->toJson();
+        $request['password'] = $password;
+        $response = $this->client->post('/v2/user', $request);
+        return $response['id'];
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param string $userId The id, email address, or mention name (beginning with an '@') of the user to delete.
+     *
+     * @return void
+     */
+    public function deleteUser($userId)
+    {
+        $this->client->delete(sprintf('/v2/user/%s', $userId));
+    }
+
+    /**
      * Sends a user a private message
      * More info: https://www.hipchat.com/docs/apiv2/method/private_message_user
      *

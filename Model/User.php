@@ -46,6 +46,9 @@ class User
     {
         if ($json) {
             $this->parseJson($json);
+        } else {
+            $this->groupAdmin = false;
+            $this->timezone = 'UTC';
         }
     }
 
@@ -75,6 +78,19 @@ class User
             $this->email = $json['email'];
             $this->photoUrl = $json['photo_url'];
         }
+    }
+
+    public function toJson()
+    {
+        $json = array();
+        $json['name'] = $this->name;
+        $json['title'] = $this->title;
+        $json['mention_name'] = $this->mentionName;
+        $json['is_group_admin'] = $this->groupAdmin;
+        $json['timezone'] = $this->timezone;
+        $json['email'] = $this->email;
+
+        return $json;
     }
 
     /**

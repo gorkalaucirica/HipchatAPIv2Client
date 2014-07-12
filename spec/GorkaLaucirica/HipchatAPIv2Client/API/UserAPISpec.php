@@ -3,6 +3,7 @@
 namespace spec\GorkaLaucirica\HipchatAPIv2Client\API;
 
 use GorkaLaucirica\HipchatAPIv2Client\Client;
+use GorkaLaucirica\HipchatAPIv2Client\Model\User;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -39,10 +40,29 @@ class UserAPISpec extends ObjectBehavior
         $this->getUser($mentionName)->shouldReturnAnInstanceOf('GorkaLaucirica\HipchatAPIv2Client\Model\User');
     }
 
+    function it_creates_user(Client $client, User $user)
+    {
+        $request = array(
+            'name' => 'Test', 'title' => 'Tester', 'mention_name' => 'test', 'is_group_admin' => false,
+            'email' => 'test@test.com');
+        $user->toJson()->shouldBeCalled()->willReturn($request);
+        $request['password'] = 'test1234';
+        $client->post('/v2/user', $request)->shouldBeCalled()->willReturn(array('id' => '123456', 'links' => array()));
+
+        $this->createUser($user, 'test1234')->shouldReturn('123456');
+    }
+
+    function it_deletes_user(Client $client)
+    {
+        $client->delete('/v2/user/test')->shouldBeCalled();
+
+        $this->deleteUser('test');
+    }
+
     function it_sends_private_message_user(Client $client)
     {
-        $client->post('/v2/user/123456/message',array('message' => 'Im testing!!'))->shouldBeCalled();
-        $this->privateMessageUser('123456','Im testing!!');
+        $client->post('/v2/user/123456/message', array('message' => 'Im testing!!'))->shouldBeCalled();
+        $this->privateMessageUser('123456', 'Im testing!!');
     }
 
     protected function getTestResponse()
@@ -59,7 +79,7 @@ class UserAPISpec extends ObjectBehavior
             'mention_name' => '@test',
             'is_group_admin' => false,
             'timezone' => 'UTC+1',
-            'is_guest'=> false,
+            'is_guest' => false,
             'email' => 'test@test.com',
             'photo_url' => 'http://test.com/test.jpg'
         );
