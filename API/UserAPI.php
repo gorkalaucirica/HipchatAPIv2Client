@@ -21,6 +21,25 @@ class UserAPI
     }
 
     /**
+     * List all users in the group
+     * More info: https://www.hipchat.com/docs/apiv2/method/get_all_users
+     *
+     * @param array $parameters The following are accepted: start-index, max-results, include-guests, include-deleted
+     *
+     * @return array of Users
+     */
+    public function getAllUsers($parameters = array())
+    {
+        $response = $this->client->get('/v2/user', $parameters);
+
+        $users = array();
+        foreach ($response['items'] as $response) {
+            $users[] = new User($response);
+        }
+        return $users;
+    }
+
+    /**
      * Gets user by id, email or mention name
      * More info: https://www.hipchat.com/docs/apiv2/method/view_user
      *

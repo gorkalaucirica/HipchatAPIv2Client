@@ -92,5 +92,5 @@ The following list shows methods available and missing:
 - [ ] Delete user
 - [x] View user
 - [ ] Create user
-- [ ] Get all users
+- [x] Get all users
 

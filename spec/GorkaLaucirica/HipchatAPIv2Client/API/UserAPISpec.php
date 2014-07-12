@@ -18,7 +18,19 @@ class UserAPISpec extends ObjectBehavior
         $this->shouldHaveType('GorkaLaucirica\HipchatAPIv2Client\API\UserAPI');
     }
 
-    function it_gets_room(Client $client)
+    function it_gets_all_users(Client $client)
+    {
+        $response = array('items' => array(array(
+            'mention_name' => '@test', 'id' => '123456', 'links' => array(), 'name' => 'Test')),
+            'startIndex' => 0, 'maxResults' => 50, 'links' => array()
+        );
+
+        $client->get('/v2/user', array())->shouldBeCalled()->willReturn($response);
+
+        $this->getAllUsers()->shouldHaveCount(1);
+    }
+
+    function it_gets_user(Client $client)
     {
         $mentionName = '@test';
         $response = $this->getTestResponse();
