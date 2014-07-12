@@ -77,8 +77,8 @@ The following list shows methods available and missing:
 - [ ] Get room statistics
 - [ ] Get all members
 - [ ] Set topic
-- [ ] Add member
-- [ ] Remove member
+- [x] Add member
+- [x] Remove member
 - [ ] Delete webhook
 - [ ] Get webhook
 - [ ] View history

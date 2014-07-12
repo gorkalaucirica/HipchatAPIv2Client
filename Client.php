@@ -114,13 +114,12 @@ class Client
      * @return array Decoded array containing response
      * @throws Exception\RequestException
      */
-    public function put($resource, $content)
+    public function put($resource, $content = array())
     {
         $curl = new Curl();
         $browser = new Browser($curl);
 
         $url = $this->baseUrl . $resource;
-
         $headers = array(
             'Content-Type' => 'application/json',
             'Authorization' => $this->auth->getCredential()

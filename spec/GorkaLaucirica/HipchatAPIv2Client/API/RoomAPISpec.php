@@ -76,6 +76,18 @@ class RoomAPISpec extends ObjectBehavior
         $this->sendRoomNotification(123456, $message);
     }
 
+    function it_adds_member(Client $client)
+    {
+        $client->put('/v2/room/665432/member/122334')->shouldBeCalled();
+        $this->addMember('665432', '122334');
+    }
+
+    function it_removes_member(Client $client)
+    {
+        $client->delete('/v2/room/665432/member/122334')->shouldBeCalled();
+        $this->removeMember('665432', '122334');
+    }
+
     protected function getResourceResponse()
     {
         return array(

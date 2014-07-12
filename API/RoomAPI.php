@@ -110,4 +110,31 @@ class RoomAPI
         $this->client->post("/v2/room/$id/notification", $message->toJson());
     }
 
+    /**
+     * Adds a member to a private room
+     *
+     * @param string $roomId   The id or name of the room
+     * @param string $memberId The id, email address, or mention name (beginning with an '@') of the user
+     *
+     * @return void
+     */
+    public function addMember($roomId, $memberId)
+    {
+        $this->client->put(sprintf('/v2/room/%s/member/%s', $roomId, $memberId));
+    }
+
+    /**
+     * Removes a member from a private room.
+     *
+     * @param string $roomId   The id, email address, or mention name (beginning with an '@') of the user
+     * @param string $memberId The id or name of the room
+     *
+     * @return void
+     */
+    public function removeMember($roomId, $memberId)
+    {
+        $this->client->delete(sprintf('/v2/room/%s/member/%s', $roomId, $memberId));
+    }
+
+
 }
