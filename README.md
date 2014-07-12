@@ -89,8 +89,8 @@ The following list shows methods available and missing:
 - [ ] Upload photo
 - [ ] Delete photo
 - [ ] Update user
-- [ ] Delete user
+- [x] Delete user
 - [x] View user
-- [ ] Create user
+- [x] Create user
 - [x] Get all users
 
