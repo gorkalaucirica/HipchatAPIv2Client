@@ -112,6 +112,7 @@ class RoomAPI
 
     /**
      * Adds a member to a private room
+     * More info: https://www.hipchat.com/docs/apiv2/method/add_member
      *
      * @param string $roomId   The id or name of the room
      * @param string $memberId The id, email address, or mention name (beginning with an '@') of the user
@@ -125,6 +126,7 @@ class RoomAPI
 
     /**
      * Removes a member from a private room.
+     * More info: https://www.hipchat.com/docs/apiv2/method/remove_member
      *
      * @param string $roomId   The id, email address, or mention name (beginning with an '@') of the user
      * @param string $memberId The id or name of the room

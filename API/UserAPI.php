@@ -34,4 +34,19 @@ class UserAPI
 
         return new User($response);
     }
+
+    /**
+     * Sends a user a private message
+     * More info: https://www.hipchat.com/docs/apiv2/method/private_message_user
+     *
+     * @param string $user    The id, email address, or mention name (beginning with an '@')
+     *                        of the user to send a message to
+     * @param string $message The message to send as plain text
+     *
+     * @return void
+     */
+    public function privateMessageUser($user, $message)
+    {
+        $this->client->post(sprintf('/v2/user/%s/message', $user), array('message' => $message));
+    }
 }

@@ -27,6 +27,12 @@ class UserAPISpec extends ObjectBehavior
         $this->getUser($mentionName)->shouldReturnAnInstanceOf('GorkaLaucirica\HipchatAPIv2Client\Model\User');
     }
 
+    function it_sends_private_message_user(Client $client)
+    {
+        $client->post('/v2/user/123456/message',array('message' => 'Im testing!!'))->shouldBeCalled();
+        $this->privateMessageUser('123456','Im testing!!');
+    }
+
     protected function getTestResponse()
     {
         return array(

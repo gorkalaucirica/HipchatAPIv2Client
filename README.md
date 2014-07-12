@@ -85,12 +85,12 @@ The following list shows methods available and missing:
 - [ ] Invite user
 
 ####Users
-- [ ] Private message user
+- [x] Private message user
 - [ ] Upload photo
 - [ ] Delete photo
 - [ ] Update user
 - [ ] Delete user
 - [x] View user
-- [ ] Crete user
+- [ ] Create user
 - [ ] Get all users
 
