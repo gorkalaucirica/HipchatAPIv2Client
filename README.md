@@ -27,6 +27,9 @@ All queries need the following two lines. The first one is to authenticate yours
 client that is used by the API classes to perform requests to the API. That is enough to start, now check the API calls
 section to see how to use the `$client` to send requests to the API.
 
+    use GorkaLaucirica\HipchatAPIv2Client\Auth\OAuth2;
+    use GorkaLaucirica\HipchatAPIv2Client\Client;
+
     $auth = new OAuth2('tokenYouCanGetInHipchatSite');
     $client = new Client($auth);
 
@@ -37,10 +40,14 @@ API documentation. Some examples:
 
 ####Getting user by mention name:
 
+    use GorkaLaucirica\HipchatAPIv2Client\API\UserAPI;
+
     $userAPI = new UserAPI($client);
     $user = $userAPI->getUser('@gorkalaucirica');
 
 ####Getting all rooms
+    
+    use GorkaLaucirica\HipchatAPIv2Client\API\RoomAPI;
 
     $roomAPI = new RoomAPI($client);
     $room = $roomAPI->getRooms(array('max-results' => 30));
