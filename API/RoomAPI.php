@@ -150,7 +150,7 @@ class RoomAPI
      */
     public function inviteMember($roomId, $memberId, $message)
     {
-        $this->client->post("/v2/room/$roomId/invite/$memberId", ['message' => $message]);
+        $this->client->post("/v2/room/$roomId/invite/$memberId", array('message' => $message));
     }
 
     /**
@@ -164,6 +164,6 @@ class RoomAPI
      */
     public function setTopic($roomId, $topic)
     {
-        $this->client->put("/v2/room/$roomId/topic", ['topic' => $topic]);
+        $this->client->put("/v2/room/$roomId/topic", array('topic' => $topic));
     }
 }
