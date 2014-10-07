@@ -88,6 +88,18 @@ class RoomAPISpec extends ObjectBehavior
         $this->removeMember('665432', '122334');
     }
 
+    function it_invites_users(Client $client) {
+        $request = array('reason' => 'Reason given');
+        $client->post('/v2/room/654321/invite/122233', $request)->shouldBeCalled();
+        $this->inviteUser(654321, 122233, 'Reason given');
+    }
+
+    function it_sets_topic(Client $client) {
+        $request = array('topic' => 'New topic');
+        $client->put('/v2/room/665432/topic', $request)->shouldBeCalled();
+        $this->setTopic(665432, 'New topic');
+    }
+
     protected function getResourceResponse()
     {
         return array(

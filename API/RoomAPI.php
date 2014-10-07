@@ -100,7 +100,7 @@ class RoomAPI
      * Gets room by id or name
      * More info: https://www.hipchat.com/docs/apiv2/method/get_room
      *
-     * @param string  $id      The id or name of the room
+     * @param string $id The id or name of the room
      * @param Message $message The message to be sent
      *
      * @return void
@@ -114,7 +114,7 @@ class RoomAPI
      * Adds a member to a private room
      * More info: https://www.hipchat.com/docs/apiv2/method/add_member
      *
-     * @param string $roomId   The id or name of the room
+     * @param string $roomId The id or name of the room
      * @param string $memberId The id, email address, or mention name (beginning with an '@') of the user
      *
      * @return void
@@ -128,7 +128,7 @@ class RoomAPI
      * Removes a member from a private room.
      * More info: https://www.hipchat.com/docs/apiv2/method/remove_member
      *
-     * @param string $roomId   The id, email address, or mention name (beginning with an '@') of the user
+     * @param string $roomId The id, email address, or mention name (beginning with an '@') of the user
      * @param string $memberId The id or name of the room
      *
      * @return void
@@ -142,28 +142,28 @@ class RoomAPI
      * Invites a member to a public room
      * More info: https://www.hipchat.com/docs/apiv2/method/invite_user
      *
-     * @param string $roomId   The id or name of the room
+     * @param string $roomId The id or name of the room
      * @param string $memberId The id, email address, or mention name (beginning with an '@') of the user
-     * @param string $message  The message displayed to a user when they are invited
+     * @param string $reason The message displayed to a user when they are invited
      *
      * @return void
      */
-    public function inviteMember($roomId, $memberId, $message)
+    public function inviteUser($roomId, $memberId, $reason)
     {
-        $this->client->post("/v2/room/$roomId/invite/$memberId", array('message' => $message));
+        $this->client->post(sprintf('/v2/room/%s/invite/%s', $roomId, $memberId), array('reason' => $reason));
     }
 
     /**
      * Set a topic on a room
      * More info: https://www.hipchat.com/docs/apiv2/method/set_topic
      *
-     * @param string $roomId   The id or name of the room
-     * @param string $topic    The topic to be set
+     * @param string $roomId The id or name of the room
+     * @param string $topic The topic to be set
      *
      * @return void
      */
     public function setTopic($roomId, $topic)
     {
-        $this->client->put("/v2/room/$roomId/topic", array('topic' => $topic));
+        $this->client->put(sprintf('/v2/room/%s/topic', $roomId), array('topic' => $topic));
     }
 }
