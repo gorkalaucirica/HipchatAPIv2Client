@@ -83,13 +83,13 @@ The following list shows methods available and missing:
 - [ ] Get all webhooks
 - [ ] Get room statistics
 - [ ] Get all members
-- [ ] Set topic
+- [x] Set topic
 - [x] Add member
 - [x] Remove member
 - [ ] Delete webhook
 - [ ] Get webhook
 - [ ] View history
-- [ ] Invite user
+- [x] Invite user
 
 ####Users
 - [x] Private message user
