@@ -18,7 +18,7 @@ The recommended way to install Hipchatv2ApiClient is through composer. Just crea
 composer.phar install command to install it:
 
     "require": {
-        "gorkalaucirica/hipchat-v2-api-client": "dev-master"
+        "gorkalaucirica/hipchat-v2-api-client": "~1.0"
     }
 
 ##Usage
