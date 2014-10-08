@@ -50,6 +50,7 @@ class Message
         return $json;
 
     }
+
     /**
      * Sets background color for message
      *
@@ -142,6 +143,4 @@ class Message
     {
         return $this->messageFormat;
     }
-
-
 }
