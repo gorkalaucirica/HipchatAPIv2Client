@@ -28,7 +28,7 @@ class Client
     public function __construct(AuthInterface $auth, Browser $browser = null)
     {
         $this->auth = $auth;
-        if ($browser == null) {
+        if ($browser === null) {
             $client = new Curl();
             $this->browser = new Browser($client);
         }
