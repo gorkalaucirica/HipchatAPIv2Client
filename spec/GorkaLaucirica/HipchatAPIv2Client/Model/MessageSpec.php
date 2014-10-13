@@ -13,12 +13,25 @@ class MessageSpec extends ObjectBehavior
         $this->shouldHaveType('GorkaLaucirica\HipchatAPIv2Client\Model\Message');
     }
 
+    function it_parses_full_json()
+    {
+        $json = array(
+            'id' => '123556',
+            'from' => 'Tester',
+            'color' => 'yellow',
+            'message' => 'Hello World',
+            'message_format' => 'html',
+            'date' => '2014-02-10 10:02:10',
+        );
+        $this->parseJson($json);
+    }
+
     function it_encodes_to_json()
     {
         $this->setColor(Message::COLOR_GRAY);
         $this->setMessage('This is a test!!');
         $this->toJson()->shouldReturn(
-            array("color" => "gray", "message" => "This is a test!!", 'notify' => false, 'message_format' => 'html')
+            array("id" => null, "from" => null, "color" => "gray", "message" => "This is a test!!", 'notify' => false, 'message_format' => 'html', 'date' => null)
         );
     }
 

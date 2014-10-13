@@ -37,6 +37,15 @@ class RoomAPISpec extends ObjectBehavior
         $this->getRoom($id)->shouldReturnAnInstanceOf('GorkaLaucirica\HipchatAPIv2Client\Model\Room');
     }
 
+    function it_gets_room_history(Client $client)
+    {
+        $id = 123456;
+        $response = $this->getMessageHistoryArrayResponse();
+        $client->get("/v2/room/$id/history/latest", array())->shouldBeCalled()->willReturn($response);
+
+        $this->getRecentHistory($id)->shouldHaveCount(2);
+    }
+
     function it_creates_room(Client $client, Room $room)
     {
         $request = array(
@@ -134,6 +143,31 @@ class RoomAPISpec extends ObjectBehavior
                         'id' => 1253,
                         'name' => 'test2',
                         'links' => array('self' => '', 'webhooks' => '', 'members' => '')
+                    )
+            )
+        );
+
+    }
+
+    protected function getMessageHistoryArrayResponse()
+    {
+        return array(
+            "items" => array(
+                    array(
+                        'id' => 1233,
+                        'color' => 'yellow',
+                        'from' => 'Tester',
+                        'message' => 'test1',
+                        'message_format' => 'html',
+                        'date' => '2014-02-10 10:02:10'
+                    ),
+                    array(
+                        'id' => 1234,
+                        'color' => 'red',
+                        'from' => 'Tester',
+                        'message' => 'test1',
+                        'message_format' => 'html',
+                        'date' => '2014-02-10 10:02:10'
                     )
             )
         );

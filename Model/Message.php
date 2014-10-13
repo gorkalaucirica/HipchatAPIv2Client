@@ -4,6 +4,9 @@ namespace GorkaLaucirica\HipchatAPIv2Client\Model;
 
 class Message
 {
+
+    protected $id = null;
+
     protected $color;
 
     protected $message;
@@ -11,6 +14,10 @@ class Message
     protected $notify;
 
     protected $messageFormat;
+
+    protected $date = null;
+    protected $from = null;
+
 
     const COLOR_YELLOW = 'yellow';
     const COLOR_GREEN = 'green';
@@ -25,14 +32,28 @@ class Message
     /**
      * Message constructor
      */
-    public function __construct()
+    public function __construct($json = null)
     {
-        $this->color = self::COLOR_YELLOW;
-        $this->messageFormat = self::FORMAT_HTML;
-        $this->message = "";
-        $this->notify = false;
-
+        if ($json) {
+            $this->parseJson($json);
+        } else {
+            $this->color = self::COLOR_YELLOW;
+            $this->messageFormat = self::FORMAT_HTML;
+            $this->message = "";
+            $this->notify = false;
+        }
     }
+
+    public function parseJson($json)
+    {
+        $this->id = $json['id'];
+        $this->from = is_array($json['from']) ? $json['from']['name'] : $json['from'];
+        $this->message = $json['message'];
+        $this->color = isset($json['color']) ? $json['color'] : null;
+        $this->messageFormat = isset($json['message_format']) ? $json['message_format'] : 'html';
+        $this->date = $json['date'];
+    }
+
 
     /**
      * Serializes Message object
@@ -42,10 +63,13 @@ class Message
     public function toJson()
     {
         $json = array();
+        $json['id'] = $this->id;
+        $json['from'] = $this->from;
         $json['color'] = $this->color;
         $json['message'] = $this->message;
         $json['notify'] = $this->notify;
         $json['message_format'] = $this->messageFormat;
+        $json['date'] = $this->date;
 
         return $json;
 

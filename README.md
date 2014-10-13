@@ -88,7 +88,7 @@ The following list shows methods available and missing:
 - [x] Remove member
 - [ ] Delete webhook
 - [ ] Get webhook
-- [ ] View history
+- [x] View history
 - [x] Invite user
 
 ####Users
