@@ -16,6 +16,7 @@ class Message
     protected $messageFormat;
 
     protected $date = null;
+
     protected $from = null;
 
 

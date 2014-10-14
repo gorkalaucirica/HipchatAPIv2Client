@@ -57,6 +57,7 @@ class RoomAPI
 
     /**
      * Fetch latest chat history for this room.
+     * More info: https://www.hipchat.com/docs/apiv2/method/view_recent_room_history
      *
      * @param string $id The id or name of the room
      * @param array $params Query string parameter(s), for example: array('max-results' => 30)
