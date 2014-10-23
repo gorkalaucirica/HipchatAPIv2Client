@@ -5,6 +5,7 @@ namespace spec\GorkaLaucirica\HipchatAPIv2Client\API;
 use GorkaLaucirica\HipchatAPIv2Client\Client;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Room;
+use GorkaLaucirica\HipchatAPIv2Client\Model\Webhook;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -109,6 +110,29 @@ class RoomAPISpec extends ObjectBehavior
         $this->setTopic(665432, 'New topic');
     }
 
+    function it_creates_webhook(Client $client, Webhook $webhook) {
+        $request = array(
+            'url' => 'http://example.com/webhook',
+            'pattern' => '/phpspec/',
+            'event' => 'room_message',
+            'name' => '112233',
+        );
+        $webhook->toJson()->shouldBeCalled()->willReturn($request);
+        $client->post('/v2/room/123456/webhook', $request)->shouldBeCalled();
+        $this->createWebhook('123456', $webhook);
+    }
+
+    function it_deletes_webhook(Client $client) {
+        $client->delete('/v2/room/123456/webhook/112233')->shouldBeCalled();
+        $this->deleteWebhook('123456', '112233');
+    }
+
+    function it_gets_webhooks(Client $client, Webhook $webhook) {
+        $response = $this->getWebhookArrayResponse();
+        $client->get('/v2/room/234567/webhook')->shouldBeCalled()->willReturn($response);
+        $this->getAllWebhooks('234567')->shouldHaveCount(2);
+    }
+
     protected function getResourceResponse()
     {
         return array(
@@ -169,6 +193,27 @@ class RoomAPISpec extends ObjectBehavior
                         'message_format' => 'html',
                         'date' => '2014-02-10 10:02:10'
                     )
+            )
+        );
+
+    }
+
+    protected function getWebhookArrayResponse()
+    {
+        return array(
+            'items' => array(
+                array(
+                    'url' => 'http://example.com/dummywebhook',
+                    'pattern' => '/phpspec_delete_webhook/',
+                    'event' => 'room_message',
+                    'name' => '332123',
+                ),
+                array(
+                    'url' => 'http://example.com/dummywebhook2',
+                    'pattern' => '/phpspec_delete_webhook2/',
+                    'event' => 'room_message',
+                    'name' => '432123',
+                )
             )
         );
 

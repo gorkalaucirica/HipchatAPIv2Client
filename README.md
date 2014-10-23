@@ -77,14 +77,14 @@ The following list shows methods available and missing:
 - [x] Update room
 - [x] Get room
 - [x] Delete room
-- [ ] Create webhook
-- [ ] Get all webhooks
+- [x] Create webhook
+- [x] Get all webhooks
 - [ ] Get room statistics
 - [ ] Get all members
 - [x] Set topic
 - [x] Add member
 - [x] Remove member
-- [ ] Delete webhook
+- [x] Delete webhook
 - [ ] Get webhook
 - [x] View history
 - [x] Invite user
