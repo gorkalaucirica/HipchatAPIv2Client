@@ -53,21 +53,7 @@ class UserAPI
 
         return new User($response);
     }
-/**
-     * Update a user
-     * More info: https://www.hipchat.com/docs/apiv2/method/create_user
-     * To use: Get user, make the desired changes, call this function
-	 *
-     * @param User   $user       User to be updated
-	 * 
-     * @return mixed
-     */
-public function updateUser(User $user){
-		$request = $user->toJson();
-		$userId=$user->getId();
-        $response = $this->client->post(sprintf('/v2/user/%s', $userId), $request);
-        return $response;
-	}
+
     /**
      * Creates a new user
      * More info: https://www.hipchat.com/docs/apiv2/method/create_user
@@ -111,4 +97,20 @@ public function updateUser(User $user){
     {
         $this->client->post(sprintf('/v2/user/%s/message', $user), array('message' => $message));
     }
+	
+	/**
+     * Update a user
+     * More info: https://www.hipchat.com/docs/apiv2/method/update_user
+     * To use: Get user, make the desired changes, call this function
+	 *
+     * @param User   $user       User to be updated
+	 * 
+     * @return mixed
+     */
+public function updateUser(User $user){
+		$request = $user->toJson();
+		$userId=$user->getId();
+        $response = $this->client->post(sprintf('/v2/user/%s', $userId), $request);
+        return $response;
+	}
 }
