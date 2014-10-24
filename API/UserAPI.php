@@ -110,7 +110,6 @@ class UserAPI
 public function updateUser(User $user){
 		$request = $user->toJson();
 		$userId=$user->getId();
-        $response = $this->client->post(sprintf('/v2/user/%s', $userId), $request);
-
+        $this->client->post(sprintf('/v2/user/%s', $userId), $request);
 	}
 }
