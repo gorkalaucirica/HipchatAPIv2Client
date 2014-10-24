@@ -105,12 +105,12 @@ class UserAPI
 	 *
      * @param User   $user       User to be updated
 	 * 
-     * @return mixed
+     * @return void
      */
 public function updateUser(User $user){
 		$request = $user->toJson();
 		$userId=$user->getId();
         $response = $this->client->post(sprintf('/v2/user/%s', $userId), $request);
-        return $response;
+
 	}
 }
