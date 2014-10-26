@@ -103,13 +103,14 @@ class UserAPI
      * More info: https://www.hipchat.com/docs/apiv2/method/update_user
      * To use: Get user, make the desired changes, call this function
 	 *
-     * @param User   $user       User to be updated
+     * @param User $user    User to be updated
 	 * 
      * @return void
      */
-public function updateUser(User $user){
+public function updateUser(User $user)
+	{
 		$request = $user->toJson();
 		$userId=$user->getId();
-        $this->client->post(sprintf('/v2/user/%s', $userId), $request);
+		$this->client->post(sprintf('/v2/user/%s', $userId), $request);
 	}
 }
