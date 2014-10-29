@@ -66,7 +66,8 @@ class User
         $this->name = $json['name'];
         if (isset($json['links'])) {
             $this->links = $json['links'];
-        } else {
+        }
+        if(isset($json['xmpp_jid'])) {
             $this->xmppJid = $json['xmpp_jid'];
             $this->deleted = $json['is_deleted'];
             $this->lastActive = $json['last_active'];

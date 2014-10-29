@@ -49,6 +49,4 @@ class RequestException extends \Exception
     {
         return $this->type;
     }
-
-
 }

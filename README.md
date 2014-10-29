@@ -93,7 +93,7 @@ The following list shows methods available and missing:
 - [x] Private message user
 - [ ] Upload photo
 - [ ] Delete photo
-- [ ] Update user
+- [x] Update user
 - [x] Delete user
 - [x] View user
 - [x] Create user

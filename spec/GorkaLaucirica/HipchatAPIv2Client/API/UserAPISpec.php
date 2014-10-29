@@ -52,6 +52,18 @@ class UserAPISpec extends ObjectBehavior
         $this->createUser($user, 'test1234')->shouldReturn('123456');
     }
 
+    function it_updates_user(Client $client, User $user)
+    {
+        $request = array(
+            'id' => '123456', 'name' => 'Test', 'title' => 'Tester', 'mention_name' => 'test',
+            'is_group_admin' => false, 'email' => 'test@test.com');
+        $user->toJson()->shouldBeCalled()->willReturn($request);
+        $user->getId()->shouldBeCalled()->willReturn('123456');
+        $client->put('/v2/user/123456', $request)->shouldBeCalled();
+
+        $this->updateUser($user, 'test1234');
+    }
+
     function it_deletes_user(Client $client)
     {
         $client->delete('/v2/user/test')->shouldBeCalled();

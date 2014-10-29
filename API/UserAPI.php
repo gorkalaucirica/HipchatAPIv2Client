@@ -58,7 +58,7 @@ class UserAPI
      * Creates a new user
      * More info: https://www.hipchat.com/docs/apiv2/method/create_user
      *
-     * @param User   $user     User to be created
+     * @param User $user User to be created
      * @param string $password User's password
      *
      * @return mixed
@@ -69,6 +69,20 @@ class UserAPI
         $request['password'] = $password;
         $response = $this->client->post('/v2/user', $request);
         return $response['id'];
+    }
+
+    /**
+     * Update a user
+     * More info: https://www.hipchat.com/docs/apiv2/method/update_user
+     *
+     * @param User $user User to be updated
+     *
+     * @return void
+     */
+    public function updateUser(User $user)
+    {
+        $request = $user->toJson();
+        $this->client->put(sprintf('/v2/user/%s', $user->getId()), $request);
     }
 
     /**
@@ -87,7 +101,7 @@ class UserAPI
      * Sends a user a private message
      * More info: https://www.hipchat.com/docs/apiv2/method/private_message_user
      *
-     * @param string $user    The id, email address, or mention name (beginning with an '@')
+     * @param string $user The id, email address, or mention name (beginning with an '@')
      *                        of the user to send a message to
      * @param string $message The message to send as plain text
      *
@@ -97,20 +111,4 @@ class UserAPI
     {
         $this->client->post(sprintf('/v2/user/%s/message', $user), array('message' => $message));
     }
-	
-	/**
-     * Update a user
-     * More info: https://www.hipchat.com/docs/apiv2/method/update_user
-     * To use: Get user, make the desired changes, call this function
-	 *
-     * @param User $user    User to be updated
-	 * 
-     * @return void
-     */
-	public function updateUser(User $user)
-	{
-		$request = $user->toJson();
-		$userId=$user->getId();
-		$this->client->post(sprintf('/v2/user/%s', $userId), $request);
-	}
 }
