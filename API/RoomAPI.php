@@ -5,6 +5,8 @@ namespace GorkaLaucirica\HipchatAPIv2Client\API;
 use GorkaLaucirica\HipchatAPIv2Client\Client;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Room;
+use GorkaLaucirica\HipchatAPIv2Client\Model\Webhook;
+
 
 class RoomAPI
 {
@@ -185,5 +187,55 @@ class RoomAPI
     public function setTopic($roomId, $topic)
     {
         $this->client->put(sprintf('/v2/room/%s/topic', $roomId), array('topic' => $topic));
+    }
+
+    /**
+     * Creates a new webhook
+     * More info: https://www.hipchat.com/docs/apiv2/method/create_webhook
+     *
+     * @param string $roomId The id or name of the room
+     * @param Webhook $webhook The webhook to create
+     *
+     * @return int Just created webhook id
+     */
+    public function createWebhook($roomId, Webhook $webhook)
+    {
+        $response = $this->client->post(sprintf('/v2/room/%s/webhook', $roomId), $webhook->toJson());
+
+        return $response['id'];
+    }
+
+    /**
+     * Deletes a new webhook
+     * More info: https://www.hipchat.com/docs/apiv2/method/delete_webhook
+     *
+     * @param string $roomId The id or name of the room
+     * @param string $webhookId The id of the webhook to delete
+     *
+     * @return void
+     */
+    public function deleteWebhook($roomId, $webhookId)
+    {
+        $this->client->delete(sprintf('/v2/room/%s/webhook/%s', $roomId, $webhookId));
+    }
+
+    /**
+     * Gets all webhooks for this room
+     * More info: https://www.hipchat.com/docs/apiv2/method/get_all_webhooks
+     *
+     * @param string $roomId The id or name of the room
+     *
+     * @TODO should return a Collection
+     * @return array Array of Webhook
+     */
+    public function getAllWebhooks($roomId)
+    {
+        $webhooks = array();
+        $response = $this->client->get(sprintf('/v2/room/%s/webhook', $roomId));
+        foreach ($response['items'] as $item) {
+            $webhooks[] = new Webhook($item);
+        }
+
+        return $webhooks;
     }
 }
