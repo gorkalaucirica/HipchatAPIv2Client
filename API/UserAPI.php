@@ -103,12 +103,18 @@ class UserAPI
      *
      * @param string $user The id, email address, or mention name (beginning with an '@')
      *                        of the user to send a message to
-     * @param string $message The message to send as plain text
+     * @param mixed $message The message to send as plain text
      *
      * @return void
      */
     public function privateMessageUser($user, $message)
     {
-        $this->client->post(sprintf('/v2/user/%s/message', $user), array('message' => $message));
+        if (is_string($message)) {
+            $content = array('message' => $message);
+        }
+        else { // Assuming its a Message
+            $content = $message->toJson();
+        }
+        $this->client->post(sprintf('/v2/user/%s/message', $user), $content);
     }
 }
