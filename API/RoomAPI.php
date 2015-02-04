@@ -119,8 +119,8 @@ class RoomAPI
     }
 
     /**
-     * Gets room by id or name
-     * More info: https://www.hipchat.com/docs/apiv2/method/get_room
+     * Send a room a notification
+     * More info: https://www.hipchat.com/docs/apiv2/method/send_room_notification
      *
      * @param string $id The id or name of the room
      * @param Message $message The message to be sent
