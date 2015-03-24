@@ -39,8 +39,7 @@ class User
      * Works with partial and full user information.
      *
      * @param array $json json_decoded response in json given by the server
-     *
-     * @return self
+     * 
      */
     public function __construct($json = null)
     {
