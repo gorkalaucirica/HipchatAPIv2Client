@@ -117,4 +117,29 @@ class UserAPI
         }
         $this->client->post(sprintf('/v2/user/%s/message', $user), $content);
     }
+    
+    /**
+     * Fetch latest chat history for the 1:1 chat with the user
+     * More info: https://www.hipchat.com/docs/apiv2/method/view_recent_privatechat_history
+     *
+     * @param string $userId The id, email address, or mention name (beginning with an '@')
+     *                        of the user to send a message to
+     * @param mixed $parameters Optional parameters, check above documentation for more info
+     *
+     * @return array Message
+     */
+    public function getRecentPrivateChatHistory($userId, array $parameters = array())
+    {
+        $response = $this->client->get(
+            sprintf('/v2/user/%s/history/latest', $userId),
+            $parameters
+        );
+
+        $messages = array();
+        foreach ($response['items'] as $response) {
+            $messages[] = new Message($response);
+        }
+
+        return $messages;
+    }
 }
