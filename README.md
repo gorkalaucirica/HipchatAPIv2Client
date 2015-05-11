@@ -56,46 +56,63 @@ The following list shows methods available and missing:
 
 ####Add ons
 - [ ] Get addon installable data
+- [ ] Create addon link
+- [ ] Invoke addon link
+- [ ] Delete addon link
 
 ####Capabilities
 - [ ] Get capabilities
 
 ####Emoticons
-- [ ] Get all emoticons
 - [ ] Get emoticon
+- [ ] Get all emoticons
 
 ####OAuth Sessions
-- [ ] Delete session
-- [ ] Get session
 - [ ] Generate token
+- [ ] Get session
+- [ ] Delete session
 
 ####Rooms
-- [x] Create room
 - [x] Get all rooms
-- [ ] Send room notification redirect
-- [x] Send room notification
-- [x] Update room
+- [x] Create room
 - [x] Get room
+- [x] Update room
 - [x] Delete room
-- [x] Create webhook
-- [x] Get all webhooks
-- [ ] Get room statistics
-- [ ] Get all members
-- [x] Set topic
+- [ ] Get avatar
+- [ ] Update avatar
+- [ ] Delete avatar
+- [ ] Get room message
+- [ ] View room history
+- [x] View recent room history
+- [x] Invite user
 - [x] Add member
 - [x] Remove member
-- [x] Delete webhook
+- [ ] Get all members
+- [ ] Send message
+- [x] Send room notification
+- [ ] Get all participants
+- [ ] Reply to message
+- [ ] Share file with room
+- [ ] Get room statistics
+- [x] Set topic
 - [ ] Get webhook
-- [x] View history
-- [x] Invite user
+- [x] Delete webhook
+- [x] Get all webhooks
+- [x] Create webhook
 
 ####Users
-- [x] Private message user
-- [ ] Upload photo
-- [ ] Delete photo
+- [x] Get all users
+- [x] Create user
+- [x] View user
 - [x] Update user
 - [x] Delete user
-- [x] View user
-- [x] Create user
-- [x] Get all users
+- [ ] Get privatechat message
+- [x] View recent privatechat history
+- [x] Private message user
+- [x] Get photo
+- [ ] Upload photo
+- [ ] Delete photo
+- [ ] Get auto join rooms
+- [ ] Share file with user
+- [ ] Share link with user
 
