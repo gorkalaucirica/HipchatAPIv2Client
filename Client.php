@@ -38,6 +38,17 @@ class Client
     }
 
     /**
+     * Set the base URL for the requests. Defaults to the public API
+     *     but this allows it to work with internal implementations too
+     *
+     * @param string $url URL to the HipChat server endpoint
+     */
+    public function setBaseUrl($url)
+    {
+        $this->baseUrl = $url;
+    }
+
+    /**
      * Common get request for all API calls
      *
      * @param string $resource The path to the resource wanted. For example v2/room
