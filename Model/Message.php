@@ -168,4 +168,26 @@ class Message
     {
         return $this->messageFormat;
     }
+    
+    /**
+     * Sets whothe message is sent from.
+     * 
+     * @param string $name Name of the message author
+     * @return self
+     */
+    public function setMessageFrom($name)
+    {
+        $this->from = $name;
+        return $this;
+    }
+
+    /**
+     * Retrieve who the message is sent from,
+     * 
+     * @return string
+     */
+    public function getMessageFrom()
+    {
+        return $this->from;
+    }
 }
