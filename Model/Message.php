@@ -168,4 +168,43 @@ class Message
     {
         return $this->messageFormat;
     }
+    /**
+     * @return null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param null $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return null
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
+     * @return null
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param null $from
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+    }
 }
