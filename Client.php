@@ -70,7 +70,11 @@ class Client
 
         $headers = array("Authorization" => $this->auth->getCredential());
 
-        $response = $this->browser->get($url, $headers);
+        try {
+            $response = $this->browser->get($url, $headers);
+        } catch (\Buzz\Exception\ClientException $e) {
+            throw new RequestException($e->getMessage());
+        }
 
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
@@ -104,7 +108,11 @@ class Client
             'Authorization' => $this->auth->getCredential()
         );
 
-        $response = $this->browser->post($url, $headers, json_encode($content));
+        try {
+            $response = $this->browser->post($url, $headers, json_encode($content));
+        } catch (\Buzz\Exception\ClientException $e) {
+            throw new RequestException($e->getMessage());
+        }
 
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
@@ -137,7 +145,11 @@ class Client
             'Authorization' => $this->auth->getCredential()
         );
 
-        $response = $this->browser->put($url, $headers, json_encode($content));
+        try {
+            $response = $this->browser->put($url, $headers, json_encode($content));
+        } catch (\Buzz\Exception\ClientException $e) {
+            throw new RequestException($e->getMessage());
+        }
 
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
@@ -162,7 +174,11 @@ class Client
             'Authorization' => $this->auth->getCredential()
         );
 
-        $response = $this->browser->delete($url, $headers);
+        try {
+            $response = $this->browser->delete($url, $headers);
+        } catch (\Buzz\Exception\ClientException $e) {
+            throw new RequestException($e->getMessage());
+        }
 
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
