@@ -123,6 +123,29 @@ class Message
     }
 
     /**
+     * Sets the message's from value
+     *
+     * @param string $from The message author's name
+     *
+     * @return self
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    /**
+     * Returns the from value
+     *
+     * @return string
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
      * Sets whether or not this message should trigger a notification
      *
      * @param boolean $notify Whether or not this message should trigger a notification
