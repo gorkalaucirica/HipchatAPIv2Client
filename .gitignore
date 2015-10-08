@@ -1,6 +1,7 @@
 vendor/
 bin/
 coverage/
+.idea
 
 composer.phar
 composer.lock
