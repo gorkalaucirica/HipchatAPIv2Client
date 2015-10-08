@@ -30,6 +30,13 @@ section to see how to use the `$client` to send requests to the API.
 
     $auth = new OAuth2('tokenYouCanGetInHipchatSite');
     $client = new Client($auth);
+    
+##Client for private instances
+
+After version 1.5.0 you can set the URL in the constructor to change the base url used by the client (by default uses 
+`https://api.hipchat.com`
+
+    $client = new Client($auth, null, 'https.//api.yourdomain.com');
 
 ##API calls
 

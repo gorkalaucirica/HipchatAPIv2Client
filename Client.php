@@ -9,7 +9,7 @@ use GorkaLaucirica\HipchatAPIv2Client\Exception\RequestException;
 
 class Client
 {
-    protected $baseUrl = 'https://api.hipchat.com';
+    protected $baseUrl;
 
     /** @var AuthInterface */
     protected $auth;
@@ -22,12 +22,14 @@ class Client
      *
      * @param AuthInterface $auth Authentication you want to use to access the api
      * @param Browser $browser Client you want to use, by default browser with curl will be used
+     * @param string $baseUrl URL to the HipChat server endpoint
      *
      * @return self
      */
-    public function __construct(AuthInterface $auth, Browser $browser = null)
+    public function __construct(AuthInterface $auth, Browser $browser = null, $baseUrl = 'https://api.hipchat.com')
     {
         $this->auth = $auth;
+        $this->baseUrl = $baseUrl;
         if ($browser === null) {
             $client = new Curl();
             $this->browser = new Browser($client);
@@ -42,6 +44,8 @@ class Client
      *     but this allows it to work with internal implementations too
      *
      * @param string $url URL to the HipChat server endpoint
+     *
+     * @deprecated Use constructor to change default baseUrl instead, will be removed in 2.0
      */
     public function setBaseUrl($url)
     {
