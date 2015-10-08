@@ -17,7 +17,7 @@ class Message
 
     protected $date = null;
 
-    protected $from = null;
+    protected $from = '';
 
 
     const COLOR_YELLOW = 'yellow';
@@ -167,5 +167,28 @@ class Message
     public function getMessageFormat()
     {
         return $this->messageFormat;
+    }
+	
+	/**
+     * Sets a label to be shown in addition to the sender's name
+     *
+     * @param string $from The label
+     *
+     * @return self
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    /**
+     * Gets the label to be shown in addition to the sender's name
+     *
+     * @return string|array
+     */
+    public function getFrom()
+    {
+        return $this->from;
     }
 }
