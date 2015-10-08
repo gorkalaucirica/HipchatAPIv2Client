@@ -168,8 +168,8 @@ class Message
     {
         return $this->messageFormat;
     }
-	
-	/**
+
+    /**
      * Sets a label to be shown in addition to the sender's name
      *
      * @param string $from The label
