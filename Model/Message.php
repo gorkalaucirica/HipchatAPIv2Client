@@ -5,7 +5,7 @@ namespace GorkaLaucirica\HipchatAPIv2Client\Model;
 class Message
 {
 
-    protected $id = null;
+    protected $id;
 
     protected $color;
 
@@ -15,9 +15,9 @@ class Message
 
     protected $messageFormat;
 
-    protected $date = null;
+    protected $date;
 
-    protected $from = null;
+    protected $from;
 
 
     const COLOR_YELLOW = 'yellow';
@@ -42,6 +42,7 @@ class Message
             $this->messageFormat = self::FORMAT_HTML;
             $this->message = "";
             $this->notify = false;
+            $this->from = "";
         }
     }
 
@@ -167,5 +168,28 @@ class Message
     public function getMessageFormat()
     {
         return $this->messageFormat;
+    }
+
+    /**
+     * Sets a label to be shown in addition to the sender's name
+     *
+     * @param string $from A label to be shown in addition to the sender's name
+     *
+     * @return self
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    /**
+     * Returns how the message is treated by the server and rendered inside HipChat applications
+     *
+     * @return string
+     */
+    public function getFrom()
+    {
+        return $this->from;
     }
 }
