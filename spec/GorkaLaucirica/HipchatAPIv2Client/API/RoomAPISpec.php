@@ -182,6 +182,7 @@ class RoomAPISpec extends ObjectBehavior
                         'color' => 'yellow',
                         'from' => 'Tester',
                         'message' => 'test1',
+                        'notify' => false,
                         'message_format' => 'html',
                         'date' => '2014-02-10 10:02:10'
                     ),
@@ -190,6 +191,7 @@ class RoomAPISpec extends ObjectBehavior
                         'color' => 'red',
                         'from' => 'Tester',
                         'message' => 'test1',
+                        'notify' => false,
                         'message_format' => 'html',
                         'date' => '2014-02-10 10:02:10'
                     )

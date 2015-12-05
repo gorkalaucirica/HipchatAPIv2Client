@@ -51,6 +51,7 @@ class Message
         $this->from = is_array($json['from']) ? $json['from']['name'] : $json['from'];
         $this->message = $json['message'];
         $this->color = isset($json['color']) ? $json['color'] : null;
+        $this->notify = $json['notify'];
         $this->messageFormat = isset($json['message_format']) ? $json['message_format'] : 'html';
         $this->date = $json['date'];
     }
