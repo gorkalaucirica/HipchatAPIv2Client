@@ -56,6 +56,13 @@ class RoomAPI
 
         return new Room($response);
     }
+    
+    public function getRoomMembers($id)
+    {
+        $response = $this->client->get("/v2/room/$id/member");
+        
+        return $response['items'];
+    }
 
     /**
      * Fetch latest chat history for this room.
