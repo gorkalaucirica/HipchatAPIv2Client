@@ -129,6 +129,7 @@ class RoomAPI
      */
     public function sendRoomNotification($id, Message $message)
     {
+        $id = rawurlencode($id);
         $this->client->post("/v2/room/$id/notification", $message->toJson());
     }
 
