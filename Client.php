@@ -17,6 +17,9 @@ class Client
     /** @var Browser */
     protected $browser;
 
+    protected $rateLimit_Remaining = 500;
+    protected $rateLimit_Reset = null;
+
     /**
      * Client constructor
      *
@@ -69,12 +72,13 @@ class Client
         }
 
         $headers = array("Authorization" => $this->auth->getCredential());
-
+        $this->applyRateLimit();
         $response = $this->browser->get($url, $headers);
 
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
         }
+        $this->updateRateHeaders($this->browser->getLastResponse()->getHeaders());
 
         return json_decode($response->getContent(), true);
     }
@@ -105,10 +109,11 @@ class Client
         );
 
         $response = $this->browser->post($url, $headers, json_encode($content));
-
+        $this->applyRateLimit();
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
         }
+        $this->updateRateHeaders($this->browser->getLastResponse()->getHeaders());
 
         return json_decode($response->getContent(), true);
     }
@@ -138,10 +143,11 @@ class Client
         );
 
         $response = $this->browser->put($url, $headers, json_encode($content));
-
+        $this->applyRateLimit();
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
         }
+        $this->updateRateHeaders($this->browser->getLastResponse()->getHeaders());
 
         return json_decode($response->getContent(), true);
     }
@@ -163,11 +169,62 @@ class Client
         );
 
         $response = $this->browser->delete($url, $headers);
-
+        $this->applyRateLimit();
         if ($this->browser->getLastResponse()->getStatusCode() > 299) {
             throw new RequestException(json_decode($this->browser->getLastResponse()->getContent(), true));
         }
+        $this->updateRateHeaders($this->browser->getLastResponse()->getHeaders());
 
         return json_decode($response->getContent(), true);
+    }
+
+    protected function applyRateLimit()
+    {
+
+        if ( is_null($this->rateLimit_Reset)) {
+            return ;
+        }
+
+        // Calculate number of seconds before reset
+        $now = time();
+        $remaining_time = $this->rateLimit_Reset - $now;
+
+        if( $this->rateLimit_Remaining <= 0) {
+            $sleep = $remaining_time;
+        } else {
+            // We are a little optimistic and floor so we don't delay when not needed
+            $sleep = floor($remaining_time / $this->rateLimit_Remaining);
+        }
+        var_dump("Sleep time: " . $sleep);
+
+        sleep($sleep);
+
+    }
+
+    protected function updateRateHeaders($headers)
+    {
+        //$pattern = 'X-Ratelimit-Remaining';
+        $filter = function ($value) use (&$pattern) {
+            if (substr($value,0,strlen($pattern)) == $pattern) {
+                return true;
+            } else{
+                return false;
+            }
+        };
+        $pattern = 'X-Ratelimit-Remaining';
+        $remaining = array_filter($headers, $filter);
+        if(count($remaining) == 1) {
+            $matches = null;
+            preg_match('~\w+: (?P<digit>\d+)~', current($remaining), $matches);
+            $this->rateLimit_Remaining = $matches['digit'];
+        }
+
+        $pattern = 'X-Ratelimit-Reset';
+        $reset = array_filter($headers, $filter);
+        if(count($reset) == 1) {
+            $matches = null;
+            preg_match('~\w+: (?P<digit>\d+)~', current($reset), $matches);
+            $this->rateLimit_Reset = $matches['digit'];
+        }
     }
 }

@@ -78,6 +78,18 @@ class RoomAPI
     }
 
     /**
+     * Get statistics from room
+     *
+     * @param string $id The id or name of the room
+     */
+    public function getRoomStatistics($room)
+    {
+        $stats = $this->client->get("/v2/room/".$room->getId()."/statistics");
+
+        return new RoomStatistics($stats);
+    }
+
+    /**
      * Creates a room
      * More info: https://www.hipchat.com/docs/apiv2/method/create_room
      *
