@@ -24,6 +24,13 @@ class MessageSpec extends ObjectBehavior
             'date' => '2014-02-10 10:02:10',
         );
         $this->parseJson($json);
+
+        $this->getId()->shouldReturn('123556');
+        $this->getFrom()->shouldReturn('Tester');
+        $this->getColor()->shouldReturn('yellow');
+        $this->getMessage()->shouldReturn('Hello World');
+        $this->getMessageFormat()->shouldReturn('html');
+        $this->getDate()->shouldReturn('2014-02-10 10:02:10');
     }
 
     function it_encodes_to_json()
