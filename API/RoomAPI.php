@@ -78,6 +78,26 @@ class RoomAPI
     }
 
     /**
+     * Fetch latest chat history for this room.
+     * More info: https://www.hipchat.com/docs/apiv2/method/view_recent_room_history
+     *
+     * @param string $id The id or name of the room
+     * @param array $params Query string parameter(s), for example: array('max-results' => 30)
+     *
+     * @return array
+     */
+    public function getHistory($id, $params = array())
+    {
+        $response = $this->client->get(sprintf('/v2/room/%s/history', $id), $params);
+
+        $messages = array();
+        foreach ($response['items'] as $response) {
+            $messages[] = new Message($response);
+        }
+        return $messages;
+    }
+
+    /**
      * Creates a room
      * More info: https://www.hipchat.com/docs/apiv2/method/create_room
      *
