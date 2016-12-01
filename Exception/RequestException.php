@@ -8,7 +8,6 @@
 
 namespace GorkaLaucirica\HipchatAPIv2Client\Exception;
 
-
 class RequestException extends \Exception
 {
     protected $responseCode;
@@ -20,14 +19,20 @@ class RequestException extends \Exception
     /**
      * Request exception constructor
      *
-     * @param string $response json_decoded array with the error response given by the server
+     * @param array|string $response json_decoded array with the error response given by the server
+     *                               or an error message string
      */
     public function __construct($response)
     {
-        $error = $response['error'];
-        $this->responseCode = $error['code'];
-        $this->message = $error['message'];
-        $this->type = $error['type'];
+        if (is_array($response)) {
+            $error = isset($response['error']) ? $response['error'] : null;
+
+            $this->responseCode = isset($error['code']) ? $error['code'] : null;
+            $this->message      = isset($error['message']) ? $error['message'] : null;
+            $this->type         = isset($error['type']) ? $error['type'] : null;
+        } elseif (is_string($response)) {
+            $this->message = $response;
+        }
     }
 
     /**
