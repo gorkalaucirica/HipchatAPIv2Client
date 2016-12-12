@@ -124,6 +124,29 @@ class Message
     }
 
     /**
+     * Sets the 'from' context of the message
+     *
+     * @param string $from message 'from' context
+     *
+     * @return self
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    /**
+     * Returns the 'from' context of the message
+     *
+     * @return string
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
      * Sets whether or not this message should trigger a notification
      *
      * @param boolean $notify Whether or not this message should trigger a notification
