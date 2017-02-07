@@ -19,6 +19,8 @@ class Message
 
     protected $from = '';
 
+    protected $card;
+
 
     const COLOR_YELLOW = 'yellow';
     const COLOR_GREEN = 'green';
@@ -72,7 +74,14 @@ class Message
         $json['notify'] = $this->notify;
         $json['message_format'] = $this->messageFormat;
         $json['date'] = $this->date;
-
+        if ($this->card)
+        {
+            if ($json['message_format'] != "html")
+            {
+                $json['message_format'] = "html";
+            }
+            $json['card'] = $this->card->toArray();
+        }
         return $json;
 
     }
@@ -191,5 +200,12 @@ class Message
     public function getFrom()
     {
         return $this->from;
+    }
+
+    /**
+     * @param Card $card
+     */
+    public function setCard($card){
+        $this->card = $card;
     }
 }
