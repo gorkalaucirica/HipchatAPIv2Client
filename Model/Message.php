@@ -74,8 +74,14 @@ class Message
         $json['notify'] = $this->notify;
         $json['message_format'] = $this->messageFormat;
         $json['date'] = $this->date;
-        $json['card'] = $this->card->toArray();
-
+        if ($this->card)
+        {
+            if ($json['message_format'] != "html")
+            {
+                $json['message_format'] = "html";
+            }
+            $json['card'] = $this->card->toArray();
+        }
         return $json;
 
     }

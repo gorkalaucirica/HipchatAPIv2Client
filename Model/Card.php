@@ -7,7 +7,18 @@
 
 namespace GorkaLaucirica\HipchatAPIv2Client\Model;
 
-
+/**
+ * Class Card
+ *
+ * Allows you to send a Card format message rather than a plain text/only-html message.
+ *
+ * Some Hipchat clients may not support Cards, you must still include a `message` property in your Message.
+ *
+ * More Info: https://developer.atlassian.com/hipchat/guide/sending-messages#SendingMessages-UsingCards
+ * Even More Info: https://www.hipchat.com/docs/apiv2/method/send_room_notification
+ *
+ * @package GorkaLaucirica\HipchatAPIv2Client\Model
+ */
 class Card
 {
     /**
@@ -61,6 +72,21 @@ class Card
      * @var CardImage $images
      */
     protected $images;
+
+    /**
+     * Card constructor.
+     *
+     * @param CardStyle $style Style of the Card to use
+     * @param string $description
+     * @param string $title
+     */
+    public function __construct($title, $style, $description)
+    {
+        $this->title = $title;
+        $this->style = $style;
+        $this->description = $description;
+        $this->id = md5($title.$description);
+    }
 
     /**
      * @return CardStyle
@@ -249,7 +275,7 @@ class Card
         if ($this->url) $result['url'] = $this->url;
         if ($this->title) $result['title'] = $this->title;
         if ($this->thumbnail) $result['thumbnail'] = $this->thumbnail->toArray();
-        if ($this->activity) $result['activity'] = $this->activity;
+        if ($this->activity) $result['activity'] = $this->activity->toArray();
         if ($this->attributes) {
             $result['attributes'] = array();
             foreach ($this->attributes as $attribute) {
@@ -266,13 +292,26 @@ class Card
 
 class CardImage {
     /**
-     * @var string $image Image url
+     * @var string $url Image URL
+     * @var string $url2x Image URL for the icon on retina
      */
-    public $image;
+    public $url;
+    public $urlat2;
+
+    /**
+     * CardImage constructor.
+     *
+     * @param string $url Image URL
+     */
+    public function __construct($url)
+    {
+        $this->url = $url;
+    }
 
     public function toArray(){
         $result = array();
-        if ($this->image) $result['image'] = $this->image;
+        if ($this->url) $result['url'] = $this->url;
+        if ($this->urlat2) $result['url@2x'] = $this->urlat2;
         return $result;
     }
 }
@@ -285,14 +324,19 @@ class CardAttribute {
     public $value;
     public $label;
 
-    public function __construct()
+    /**
+     * CardAttribute constructor.
+     *
+     * @param string $value Value for the attribute
+     */
+    public function __construct($value)
     {
-        $this->value = new CardAttributeValue();
+        $this->value = new CardAttributeValue($value);
     }
 
     public function toArray(){
         $result = array();
-        if ($this->value) $result['value'] = $this->value;
+        if ($this->value) $result['value'] = $this->value->toArray();
         if ($this->label) $result['label'] = $this->label;
         return $result;
     }
@@ -301,14 +345,24 @@ class CardAttribute {
 class CardAttributeValue {
     /**
      * @var string $url Url to be opened when a user clicks on the label. Valid length range: 1 - unlimited.
-     * @var AttributeValueStyle $style
-     * @var string $label
+     * @var AttributeValueStyle $style AUI Integrations for now supporting only lozenges
+     * @var string $label The text representation of the value @required
      * @var CardIcon $icon
      */
     public $url;
     public $style;
     public $label;
     public $icon;
+
+    /**
+     * CardAttributeValue constructor.
+     *
+     * @param string $label The text representation of the value
+     */
+    public function __construct($label)
+    {
+        $this->label = $label;
+    }
 
     public function toArray(){
         $result = array();
@@ -321,7 +375,7 @@ class CardAttributeValue {
 }
 
 /**
- * The activity will generate a collapsable card of one line showing
+ * The activity will generate a collapsible card of one line showing
  * the html and the ability to maximize to see all the content.
  *
  * @package GorkaLaucirica\HipchatAPIv2Client\Model
@@ -335,10 +389,20 @@ class CardActivity {
     public $html;
     public $icon;
 
+    /**
+     * CardActivity constructor.
+     *
+     * @param string $html Html for the activity to show in one line a summary of the action that happened
+     */
+    public function __construct($html)
+    {
+        $this->html = $html;
+    }
+
     public function toArray(){
         $result = array();
         if ($this->html) $result['html'] = $this->html;
-        if ($this->icon) $result['icon'] = $this->icon;
+        if ($this->icon) $result['icon'] = $this->icon->toArray();
         return $result;
     }
 }
@@ -355,10 +419,20 @@ class CardIcon {
     public $url;
     public $urlat2;
 
+    /**
+     * CardIcon constructor.
+     *
+     * @param string $url The URL for the icon
+     */
+    public function __construct($url)
+    {
+        $this->url = $url;
+    }
+
     public function toArray(){
         $result = array();
         if ($this->url) $result['url'] = $this->url;
-        if ($this->urlat2) $result['urlat2'] = $this->urlat2;
+        if ($this->urlat2) $result['url@2x'] = $this->urlat2;
         return $result;
     }
 }
@@ -379,11 +453,21 @@ class CardThumbnail {
     public $urlat2;
     public $height;
 
+    /**
+     * CardThumbnail constructor.
+     *
+     * @param string $url The URL for the thumbnail
+     */
+    public function __construct($url)
+    {
+        $this->url = $url;
+    }
+
     public function toArray(){
         $result = array();
-        if ($this->url) $result['value'] = $this->url;
+        if ($this->url) $result['url'] = $this->url;
         if ($this->width) $result['width'] = $this->width;
-        if ($this->urlat2) $result['urlat2'] = $this->urlat2;
+        if ($this->urlat2) $result['url@2x'] = $this->urlat2;
         if ($this->height) $result['height'] = $this->height;
         return $result;
     }
