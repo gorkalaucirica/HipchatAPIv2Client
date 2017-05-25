@@ -83,6 +83,7 @@ class User
     public function toJson()
     {
         $json = array();
+        $json['id'] = $this->id;
         $json['name'] = $this->name;
         $json['title'] = $this->title;
         $json['mention_name'] = $this->mentionName;

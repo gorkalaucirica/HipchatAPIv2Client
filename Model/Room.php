@@ -93,8 +93,8 @@ class Room
             $json['is_archived'] = $this->isArchived();
             $json['is_guest_accessible'] = $this->isGuestAccessible();
             $json['topic'] = $this->getTopic();
-            $json['owner'] = array('id' => $this->getOwner()->getId());
-        } else { //Paramters for POST call
+            $json['owner'] = is_null($this->getOwner()) ? null : $this->getOwner()->toJson();
+        } else { //Parameters for POST call
             $json['guest_access'] = $this->isGuestAccessible();
             if ($this->getOwner()) {
                 $json['owner_user_id'] = $this->getOwner()->getId();
