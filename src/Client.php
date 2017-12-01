@@ -7,7 +7,7 @@ use Buzz\Client\Curl;
 use GorkaLaucirica\HipchatAPIv2Client\Auth\AuthInterface;
 use GorkaLaucirica\HipchatAPIv2Client\Exception\RequestException;
 
-class Client
+class Client implements ClientInterface
 {
     protected $baseUrl;
 

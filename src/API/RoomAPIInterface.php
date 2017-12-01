@@ -1,28 +1,21 @@
 <?php
+/**
+ * Created by solutionDrive GmbH.
+ *
+ * @author:    Tobias Lückel <tl@solutionDrive.de>
+ * @date:      01.12.17
+ * @time:      13:09
+ * @copyright: 2017 solutionDrive GmbH
+ */
 
 namespace GorkaLaucirica\HipchatAPIv2Client\API;
 
-use GorkaLaucirica\HipchatAPIv2Client\Client;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Room;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Webhook;
 
-
-class RoomAPI
+interface RoomAPIInterface
 {
-    /** @var Client */
-    protected $client;
-
-    /**
-     * Room api constructor
-     *
-     * @param Client $client that will be used to connect the server
-     */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * List non-archived rooms for this group
      * More info: https://www.hipchat.com/docs/apiv2/method/get_all_rooms
@@ -31,16 +24,7 @@ class RoomAPI
      *
      * @return array
      */
-    public function getRooms($params = array())
-    {
-        $response = $this->client->get("/v2/room", $params);
-
-        $rooms = array();
-        foreach ($response['items'] as $response) {
-            $rooms[] = new Room($response);
-        }
-        return $rooms;
-    }
+    public function getRooms($params = array());
 
     /**
      * Gets room by id or name
@@ -50,12 +34,7 @@ class RoomAPI
      *
      * @return Room
      */
-    public function getRoom($id)
-    {
-        $response = $this->client->get("/v2/room/$id");
-
-        return new Room($response);
-    }
+    public function getRoom($id);
 
     /**
      * Fetch latest chat history for this room.
@@ -66,16 +45,7 @@ class RoomAPI
      *
      * @return array
      */
-    public function getRecentHistory($id, $params = array())
-    {
-        $response = $this->client->get(sprintf('/v2/room/%s/history/latest', $id), $params);
-
-        $messages = array();
-        foreach ($response['items'] as $response) {
-            $messages[] = new Message($response);
-        }
-        return $messages;
-    }
+    public function getRecentHistory($id, $params = array());
 
     /**
      * Creates a room
@@ -85,12 +55,7 @@ class RoomAPI
      *
      * @return integer Just created room id
      */
-    public function createRoom(Room $room)
-    {
-        $response = $this->client->post("/v2/room", $room->toJson());
-
-        return $response['id'];
-    }
+    public function createRoom(Room $room);
 
     /**
      * Updates a room
@@ -100,10 +65,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function updateRoom(Room $room)
-    {
-        $this->client->put(sprintf("/v2/room/%s", $room->getId()), $room->toJson());
-    }
+    public function updateRoom(Room $room);
 
     /**
      * Deletes a room and kicks the current participants.
@@ -113,10 +75,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function deleteRoom($id)
-    {
-        $this->client->delete(sprintf('/v2/room/%s', $id));
-    }
+    public function deleteRoom($id);
 
     /**
      * Send a room a notification
@@ -127,11 +86,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function sendRoomNotification($id, Message $message)
-    {
-        $id = rawurlencode($id);
-        $this->client->post("/v2/room/$id/notification", $message->toJson());
-    }
+    public function sendRoomNotification($id, Message $message);
 
     /**
      * Adds a member to a private room
@@ -142,10 +97,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function addMember($roomId, $memberId)
-    {
-        $this->client->put(sprintf('/v2/room/%s/member/%s', $roomId, $memberId));
-    }
+    public function addMember($roomId, $memberId);
 
     /**
      * Removes a member from a private room.
@@ -156,10 +108,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function removeMember($roomId, $memberId)
-    {
-        $this->client->delete(sprintf('/v2/room/%s/member/%s', $roomId, $memberId));
-    }
+    public function removeMember($roomId, $memberId);
 
     /**
      * Invites a member to a public room
@@ -171,10 +120,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function inviteUser($roomId, $memberId, $reason)
-    {
-        $this->client->post(sprintf('/v2/room/%s/invite/%s', $roomId, $memberId), array('reason' => $reason));
-    }
+    public function inviteUser($roomId, $memberId, $reason);
 
     /**
      * Set a topic on a room
@@ -185,10 +131,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function setTopic($roomId, $topic)
-    {
-        $this->client->put(sprintf('/v2/room/%s/topic', $roomId), array('topic' => $topic));
-    }
+    public function setTopic($roomId, $topic);
 
     /**
      * Creates a new webhook
@@ -199,12 +142,7 @@ class RoomAPI
      *
      * @return int Just created webhook id
      */
-    public function createWebhook($roomId, Webhook $webhook)
-    {
-        $response = $this->client->post(sprintf('/v2/room/%s/webhook', $roomId), $webhook->toJson());
-
-        return $response['id'];
-    }
+    public function createWebhook($roomId, Webhook $webhook);
 
     /**
      * Deletes a new webhook
@@ -215,10 +153,7 @@ class RoomAPI
      *
      * @return void
      */
-    public function deleteWebhook($roomId, $webhookId)
-    {
-        $this->client->delete(sprintf('/v2/room/%s/webhook/%s', $roomId, $webhookId));
-    }
+    public function deleteWebhook($roomId, $webhookId);
 
     /**
      * Gets all webhooks for this room
@@ -229,14 +164,5 @@ class RoomAPI
      * @TODO should return a Collection
      * @return array Array of Webhook
      */
-    public function getAllWebhooks($roomId)
-    {
-        $webhooks = array();
-        $response = $this->client->get(sprintf('/v2/room/%s/webhook', $roomId));
-        foreach ($response['items'] as $item) {
-            $webhooks[] = new Webhook($item);
-        }
-
-        return $webhooks;
-    }
+    public function getAllWebhooks($roomId);
 }
