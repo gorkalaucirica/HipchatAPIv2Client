@@ -2,23 +2,23 @@
 
 namespace GorkaLaucirica\HipchatAPIv2Client\API;
 
-use GorkaLaucirica\HipchatAPIv2Client\Client;
+use GorkaLaucirica\HipchatAPIv2Client\ClientInterface;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Room;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Webhook;
 
 
-class RoomAPI
+class RoomAPI implements RoomAPIInterface
 {
-    /** @var Client */
+    /** @var ClientInterface */
     protected $client;
 
     /**
      * Room api constructor
      *
-     * @param Client $client that will be used to connect the server
+     * @param ClientInterface $client that will be used to connect the server
      */
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
