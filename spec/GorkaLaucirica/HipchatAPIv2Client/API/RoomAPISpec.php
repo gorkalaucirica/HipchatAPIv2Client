@@ -2,7 +2,7 @@
 
 namespace spec\GorkaLaucirica\HipchatAPIv2Client\API;
 
-use GorkaLaucirica\HipchatAPIv2Client\Client;
+use GorkaLaucirica\HipchatAPIv2Client\ClientInterface;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Message;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Room;
 use GorkaLaucirica\HipchatAPIv2Client\Model\Webhook;
@@ -11,7 +11,7 @@ use Prophecy\Argument;
 
 class RoomAPISpec extends ObjectBehavior
 {
-    function let(Client $client)
+    function let(ClientInterface $client)
     {
         $this->beConstructedWith($client);
     }
@@ -21,7 +21,7 @@ class RoomAPISpec extends ObjectBehavior
         $this->shouldHaveType('GorkaLaucirica\HipchatAPIv2Client\API\RoomAPI');
     }
 
-    function it_gets_rooms(Client $client)
+    function it_gets_rooms(ClientInterface $client)
     {
         $response = $this->getArrayResponse();
         $client->get("/v2/room", array())->shouldBeCalled()->willReturn($response);
@@ -29,7 +29,7 @@ class RoomAPISpec extends ObjectBehavior
         $this->getRooms()->shouldHaveCount(2);
     }
 
-    function it_gets_room(Client $client)
+    function it_gets_room(ClientInterface $client)
     {
         $id = 123456;
         $response = $this->getResourceResponse();
@@ -38,7 +38,7 @@ class RoomAPISpec extends ObjectBehavior
         $this->getRoom($id)->shouldReturnAnInstanceOf('GorkaLaucirica\HipchatAPIv2Client\Model\Room');
     }
 
-    function it_gets_room_history(Client $client)
+    function it_gets_room_history(ClientInterface $client)
     {
         $id = 123456;
         $response = $this->getMessageHistoryArrayResponse();
@@ -47,7 +47,7 @@ class RoomAPISpec extends ObjectBehavior
         $this->getRecentHistory($id)->shouldHaveCount(2);
     }
 
-    function it_creates_room(Client $client, Room $room)
+    function it_creates_room(ClientInterface $client, Room $room)
     {
         $request = array(
             'name' => 'Test name', 'privacy' => 'private', 'guest_access' => false,
@@ -58,7 +58,7 @@ class RoomAPISpec extends ObjectBehavior
         $this->createRoom($room);
     }
 
-    function it_updates_room(Client $client, Room $room)
+    function it_updates_room(ClientInterface $client, Room $room)
     {
         $request = array(
             'name' => 'Test name', 'is_archived' => false, 'privacy' => 'private', 'is_guest_accessible' => false,
@@ -70,13 +70,13 @@ class RoomAPISpec extends ObjectBehavior
         $this->updateRoom($room);
     }
 
-    function it_deletes_room(Client $client)
+    function it_deletes_room(ClientInterface $client)
     {
         $client->delete('/v2/room/123456')->shouldBeCalled();
         $this->deleteRoom('123456');
     }
 
-    function it_sends_room_notification(Client $client, Message $message)
+    function it_sends_room_notification(ClientInterface $client, Message $message)
     {
         $request = array(
             "color" => "gray", "message" => "This is a test!!", 'notify' => false, 'message_format' => 'html'
@@ -86,31 +86,31 @@ class RoomAPISpec extends ObjectBehavior
         $this->sendRoomNotification(123456, $message);
     }
 
-    function it_adds_member(Client $client)
+    function it_adds_member(ClientInterface $client)
     {
         $client->put('/v2/room/665432/member/122334')->shouldBeCalled();
         $this->addMember('665432', '122334');
     }
 
-    function it_removes_member(Client $client)
+    function it_removes_member(ClientInterface $client)
     {
         $client->delete('/v2/room/665432/member/122334')->shouldBeCalled();
         $this->removeMember('665432', '122334');
     }
 
-    function it_invites_users(Client $client) {
+    function it_invites_users(ClientInterface $client) {
         $request = array('reason' => 'Reason given');
         $client->post('/v2/room/654321/invite/122233', $request)->shouldBeCalled();
         $this->inviteUser(654321, 122233, 'Reason given');
     }
 
-    function it_sets_topic(Client $client) {
+    function it_sets_topic(ClientInterface $client) {
         $request = array('topic' => 'New topic');
         $client->put('/v2/room/665432/topic', $request)->shouldBeCalled();
         $this->setTopic(665432, 'New topic');
     }
 
-    function it_creates_webhook(Client $client, Webhook $webhook) {
+    function it_creates_webhook(ClientInterface $client, Webhook $webhook) {
         $request = array(
             'url' => 'http://example.com/webhook',
             'pattern' => '/phpspec/',
@@ -122,12 +122,12 @@ class RoomAPISpec extends ObjectBehavior
         $this->createWebhook('123456', $webhook);
     }
 
-    function it_deletes_webhook(Client $client) {
+    function it_deletes_webhook(ClientInterface $client) {
         $client->delete('/v2/room/123456/webhook/112233')->shouldBeCalled();
         $this->deleteWebhook('123456', '112233');
     }
 
-    function it_gets_webhooks(Client $client, Webhook $webhook) {
+    function it_gets_webhooks(ClientInterface $client, Webhook $webhook) {
         $response = $this->getWebhookArrayResponse();
         $client->get('/v2/room/234567/webhook')->shouldBeCalled()->willReturn($response);
         $this->getAllWebhooks('234567')->shouldHaveCount(2);
