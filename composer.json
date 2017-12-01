@@ -17,8 +17,8 @@
         "kriswallsmith/buzz": "0.10"
     },
     "require-dev": {
-        "phpspec/phpspec": "^4.0",
-        "leanphp/phpspec-code-coverage": "^4.0"
+        "phpspec/phpspec": "^3.0",
+        "leanphp/phpspec-code-coverage": "^3.0"
     },
     "target-dir": "GorkaLaucirica/HipchatAPIv2Client",
     "autoload": {
