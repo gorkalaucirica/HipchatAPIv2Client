@@ -1,2 +1,10 @@
+suites:
+  default:
+    namespace: GorkaLaucirica\HipchatAPIv2Client
+    psr4_prefix: GorkaLaucirica\HipchatAPIv2Client
+    src_path: src/
+    spec_prefix: spec\
+    spec_path: .
+
 extensions:
   LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension: ~

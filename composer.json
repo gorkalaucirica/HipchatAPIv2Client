@@ -20,12 +20,10 @@
         "phpspec/phpspec": "^3.0",
         "leanphp/phpspec-code-coverage": "^3.0"
     },
-    "target-dir": "GorkaLaucirica/HipchatAPIv2Client",
     "autoload": {
-        "psr-0": { "GorkaLaucirica\\HipchatAPIv2Client": "" }
-    },
-    "autoload-dev": {
-        "psr-0": { "GorkaLaucirica\\HipchatAPIv2Client\\spec\\": "spec/" }
+        "psr-4": {
+            "GorkaLaucirica\\HipchatAPIv2Client\\": "src/"
+        }
     },
     "config": {
         "bin-dir": "bin"
