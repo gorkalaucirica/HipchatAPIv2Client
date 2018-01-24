@@ -47,13 +47,13 @@ class Message
 
     public function parseJson($json)
     {
-        $this->id = $json['id'];
+        $this->id = isset($json['id']) ? $json['id'] : null;
         $this->from = is_array($json['from']) ? $json['from']['name'] : $json['from'];
-        $this->message = $json['message'];
+        $this->message = isset($json['message']) ? $json['message'] : null;
         $this->color = isset($json['color']) ? $json['color'] : null;
-        $this->notify = $json['notify'];
+        $this->notify = isset($json['notify']) ? $json['notify'] : null;
         $this->messageFormat = isset($json['message_format']) ? $json['message_format'] : 'html';
-        $this->date = $json['date'];
+        $this->date = isset($json['date']) ? $json['date'] : null;
     }
 
 
