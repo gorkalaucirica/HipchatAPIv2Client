@@ -51,7 +51,7 @@ class Message
         $this->from = is_array($json['from']) ? $json['from']['name'] : $json['from'];
         $this->message = $json['message'];
         $this->color = isset($json['color']) ? $json['color'] : null;
-        $this->notify = $json['notify'];
+        $this->notify = array_key_exists('notify', $json) ? $json['notify'] : false;
         $this->messageFormat = isset($json['message_format']) ? $json['message_format'] : 'html';
         $this->date = $json['date'];
     }
@@ -191,5 +191,25 @@ class Message
     public function getFrom()
     {
         return $this->from;
+    }
+    
+    /**
+     * Set the date.
+     * 
+     * @param string $date The Date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+    
+    /**
+     * Get the Message Date
+     * 
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }
